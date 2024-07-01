@@ -1,0 +1,66 @@
+Global Variables
+stop_download: A flag used to control whether the download process should stop.
+session_video_count, session_images_count, session_text_count: Counters to keep track of the number of videos, images, and text files downloaded in the current session.
+Directory Setup
+The script creates a directory structure for storing downloads from various platforms (TikTok, YouTube, Facebook, Instagram, Twitter) and file types (videos, text, images).
+
+python
+Copy code
+platforms = ['tiktok', 'youtube', 'facebook', 'instagram', 'twitter']
+file_types = ['videos', 'text', 'images']
+
+for platform in platforms:
+    for file_type in file_types:
+        os.makedirs(f'downloads/{platform}/{file_type}', exist_ok=True)
+Functions
+update_counters()
+Updates the labels displaying the count of downloaded videos, images, and text files for the current session.
+
+download_video(url, platform)
+Downloads the video, image, or text file from a given URL using yt_dlp. The function:
+
+Identifies the file type based on the file extension.
+Sets the appropriate download options, including the output template for the download path.
+Updates the session counters based on the file type.
+Logs the progress or any errors to the GUI text widget.
+get_platform(url)
+Determines the platform (TikTok, YouTube, Facebook, Instagram, Twitter) based on the URL.
+
+start_download(file_path)
+Starts the download process:
+
+Loads the Excel file containing URLs.
+Checks if the 'url' column exists.
+Iterates over each URL and calls download_video for each valid URL.
+Displays the total number of links in the Excel file.
+Updates the GUI with progress and errors.
+stop_downloads()
+Sets the stop_download flag to True to stop the download process and shows a message box with the session download counts.
+
+select_file()
+Opens a file dialog to select an Excel file and displays the selected file path in the entry widget.
+
+open_download_folder(folder_type)
+Opens the system file explorer to the specified download folder (videos, images, text) for all platforms.
+
+GUI Setup
+The script uses tkinter to create a graphical user interface with the following components:
+
+A toolbar with buttons to select an Excel file, start downloads, and stop downloads.
+An entry widget to display the selected file path.
+A text widget to log the download process.
+Separate frames and buttons to open the download folders for videos, images, and text.
+Labels to display the session download counts and the total number of links in the Excel file.
+Main Event Loop
+The main event loop (root.mainloop()) keeps the GUI running and responsive to user actions.
+
+Button Bindings
+Buttons have hover effects that change their background color when the mouse pointer enters or leaves.
+
+Usage Flow
+The user selects an Excel file containing URLs.
+The user clicks "Start Download" to begin the download process.
+The script reads the URLs from the Excel file, identifies the platform, and downloads the corresponding media.
+The user can stop the download process at any time by clicking "Stop Download".
+The user can open the downloaded media folders using the respective buttons.
+This script combines data handling, downloading media, and a user-friendly interface, making it a versatile tool for managing media downloads from various social media platforms.
